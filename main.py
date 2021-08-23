@@ -268,12 +268,12 @@ def introduce_bill():
 
 #actual game
 question_list = np.random.choice(12, 8, replace=False)
-print(question_list)
-
 question_func = [
     article_two, voting_system, veto, president_law, article_three,
     judicial_review, case_types, independent_judiciary, article_one, senator_num, congress_purpose, introduce_bill
 ]
+
+intro() 
 
 for x in question_list:
   spinning()
