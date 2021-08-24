@@ -1,3 +1,4 @@
+
 import numpy as np
 import os
 import time
@@ -9,9 +10,8 @@ a = ["a", "A"]
 b = ["b", "B"]
 c = ["c", "C"]
 d = ["d", "D"]
-possible_options = yes + no + a + b + c + d
-num_correct = 0
-
+possible_options = a + b + c
+more_options = a + b + c + d
 
 def branch(choice, option, next_branch, message=""):
     if choice in option:
@@ -27,6 +27,17 @@ def clear_screen():
     input("\nPress \u001b[34;1menter\u001b[0m to continue")
     os.system("clear")
 
+def play_again():
+    print("\nDo you want to play again?")
+    choice = input(">>> ")
+    if choice in no:
+        print("\nGame Over")
+        exit()
+    branch(choice, yes, intro)
+    if choice not in yes or choice not in no:
+      choice_not_option(play_again)
+
+#fun spinning animation
 def spinning():
   os.system("clear")
   print("◐\nSpinning")
@@ -46,15 +57,15 @@ def spinning():
 #intro
 def intro():
   print(
-      "Welcome to the Constitution Game Show! Type in your answer when presented with the prompt. Answers are not case sensitive. Don't worry if you don't know the correct answer right away. \nNow onto meeting our knowledgeable and possibly paranormal hosts! "
+      "Welcome to the Constitution Game Show! Type in your answer when presented with the prompt. Answers are not \ncase sensitive. Don't worry if you don't know the correct answer right away. \nNow onto meeting our knowledgeable and possibly paranormal hosts! "
   )
   clear_screen()
   print(
-      "In front of you there are four men dressed strangely, like they came out of a history textbook. Even stranger, they are all slightly transparent - you can see the wall through them."
+      "In front of you there are four men dressed strangely, like they came out of a history textbook. \nEven stranger, they are all slightly transparent - you can see the wall through them."
   )
   clear_screen()
   print(
-      '"I am George Washington," the first man says, "the first president of the United States. I will guide you through questions about the executive branch."'
+      '"I am George Washington," the first man says, "the first president of the United States. I will guide \nyou through questions about the executive branch."'
   )
   clear_screen()
   print(
@@ -62,11 +73,7 @@ def intro():
   )
   clear_screen()
   print(
-      '"I am John Adams," the third man announces. "As the first vice president of the United States, I was also the first president of the Senate. If you have any questions about the legislative branch, you can ask me!"'
-  )
-  clear_screen()
-  print(
-      'The last man is a shorter than the others. He introduces himself as James Madison. "Among other things, I drafted the first ten amendments. Hence, I will be able to aid you with the Bill of Rights."'
+      '"I am John Adams," the third man announces. "As the first vice president of the United States, I was also \nthe first president of the Senate. If you have any questions about the legislative branch, you can ask me!"'
   )
   clear_screen()
   print("Now it's time to spin the wheel and see what questions you are going to answer!\n\nPress \u001b[34;1menter\u001b[0m to spin the wheel")
@@ -81,7 +88,7 @@ def article_two():
            "\"That's not quite the correct branch,\" Washington says.")
     branch(
         choice, b, clear_screen,
-        "\"Correct! Article II sets up the executive branch of government, which consists of the president, vice president, and Cabinet members. They all work together to enforce laws.\" Washington explains."
+        "\"Correct! Article II sets up the executive branch of government, which consists of the president, \nvice president, and Cabinet members. They all work together to enforce laws.\" Washington explains."
     )
     branch(choice, c, article_two,
            "\"That's not quite the correct topic,\" Washington says.")
@@ -95,15 +102,15 @@ def voting_system():
     choice = input(">>> ")
     branch(
         choice, a, clear_screen,
-        "\"That is correct! Each state gets a certain amount of electors that vote for president in the system known as the electoral college,\" Washington says."
+        "\"That is correct! Each state gets a certain amount of electors that vote for president \nin the system known as the electoral college,\" Washington says."
     )
     branch(
         choice, b, voting_system,
-        "Washington shakes his head.\"Gerrymandering is when voting districts are manipulated to favor a certain candidate. It is certainly not how we wanted Americans to vote.\""
+        "Washington shakes his head.\"Gerrymandering is when voting districts are manipulated to favor a \ncertain candidate. It is certainly not how we wanted Americans to vote.\""
     )
     branch(
         choice, c, voting_system,
-        "\"We do not choose our presidents randomly,\" Washington states. \"We thought that it was very important the president be chosen by the citizens of America.\""
+        "\"We do not choose our presidents randomly,\" Washington states. \"We thought that it was very \nimportant the president be chosen by the citizens of America.\""
     )
     if choice not in possible_options:
         choice_not_option(voting_system)
@@ -117,7 +124,7 @@ def veto():
     choice = input(">>> ")
     branch(
         choice, a, clear_screen,
-        "\"You're right!\" Washington exclaims. \"I believe the power of the veto should be used sparingly - I only vetoed two bills in my entire career as president.\""
+        "\"You're right!\" Washington exclaims. \"I believe the power of the veto should be used sparingly - \nI only vetoed two bills in my entire career as president.\""
     )
     branch(choice, b, veto, "\"That's not quite right,\" Washington says.")
     branch(choice, c, veto, "\"No, that is a vest.\"")
@@ -137,7 +144,8 @@ def president_law():
         choice, a, president_law,
         "\"The president can only enforce laws, not create them.\" Washington says."
     )
-    branch(choice, b, clear_screen, "\"That's right!\" Washington exclaims. \"The president and the executive job only \u001b[3menforces\u001b[0m laws.\"")
+    branch(choice, b, clear_screen, "\"That's right!\" Washington exclaims. \"The president, who is part of the executive branch only \n\u001b[3menforces\u001b[0m laws.\"")
+    
     if choice not in possible_options:
         choice_not_option(president_law)
 
@@ -171,7 +179,7 @@ def judicial_review():
     )
     branch(
         choice, b, clear_screen,
-        "\"Right! I ruled that the Supreme Court can say that an action taken by the executive or judicial branches was unconstitutional. It's also called 'judicial review,'\" Marshall explains."
+        "\"Right! I ruled that the Supreme Court can say that an action taken by the executive or judicial branches \nwas unconstitutional. It's also called 'judicial review,'\" Marshall explains."
     )
     if choice not in possible_options:
         choice_not_option(judicial_review)
@@ -187,7 +195,7 @@ def case_types():
     )
     branch(
         choice, b, clear_screen,
-        "\"Spot on!\" Marshall cries. \"The Supreme Court can only hear cases concerning federal law, also known as limited jurisdiction.\""
+        "\"Spot on!\" Marshall cries. \"The Supreme Court can only hear cases concerning federal law, \nalso known as limited jurisdiction.\""
     )
     branch(
         choice, c, case_types,
@@ -205,11 +213,11 @@ def independent_judiciary():
     choice = input(">>> ")
     branch(
         choice, a, clear_screen,
-        '"Correct as usual!" Marshall says. "The Supreme Court\'s decisions aren\'t influenced by the other branches of government making it an independent judiciary."'
+        '"Correct as usual!" Marshall says. "The Supreme Court\'s decisions aren\'t influenced \nby the other branches of government making it an independent judiciary."'
     )
     branch(
         choice, b, independent_judiciary,
-        '"I wouldn\'t like my job very much if other people were always telling me what to do. Not to mention that it would make the court biased," Marshall huffs.'
+        '"I wouldn\'t like my job very much if other people were always telling me what to do. Not to mention \nthat it would make the court biased," Marshall huffs.'
     )
     if choice not in possible_options:
         choice_not_option(independent_judiciary)
@@ -227,7 +235,7 @@ def article_one():
     )
     branch(
         choice, b, clear_screen,
-        'Adams nods. "The first article of the Constitution sets up Congress which is made up of the House of Representatives and the Senate."'
+        'Adams nods. "The first article of the Constitution sets up Congress which is made up of the \nHouse of Representatives and the Senate."'
     )
     branch(choice, c, article_one, '"The Declaration of Independence is a separate document," Adams says.')
     if choice not in possible_options:
@@ -240,7 +248,7 @@ def senator_num():
   branch(choice, a, senator_num, '"Each state actually has a fixed number of senators," Adams clarifies.')
   branch(choice, b, senator_num, '"That would be too few," Adams says.')
   branch(choice, c, clear_screen, '"Spot on!" Adams says excitedly.')
-  branch(choice, d, senator_num, '"That would be way too many. Imagine trying to fit that many people in one room. And it would be so \u001b[3mloud\u001b[0m..." Adams shudders at the thought.')
+  branch(choice, d, senator_num, '"That would be way too many. Imagine trying to fit that many people in one room. And it would be so \u001b[3mloud\u001b[0m..." \nAdams shudders at the thought.')
   if choice not in possible_options:
     choice_not_option(senator_num)
 
@@ -260,19 +268,20 @@ def introduce_bill():
   print("A: the President\nB: a member of Congress\nC: a US citizen\nD: anyone from North America")
   choice = input(">>> ")
   branch(choice, a, introduce_bill, '"The President cannot introduce bills because that would be too much overlap between branches," Adams says.')
-  branch(choice, b, clear_screen, 'Adams nods approvingly. "The legislative branch is responsible for the entire process in which a bill becomes a law."')
+  branch(choice, b, clear_screen, 'Adams nods approvingly. "The legislative branch is responsible for the entire process in which a bill \nbecomes a law."')
   branch(choice, c, introduce_bill, '"Being a US citizen is only one requirement needed to be able to submit a bill into Congress," Adams says.')
-  branch(choice, d, introduce_bill, 'Imagine the pile of bills Congress would have to go through if anyone on the entire continent could submit a bill," Adams says, looking horrified by the thought.')
+  branch(choice, d, introduce_bill, 'Imagine the pile of bills Congress would have to go through if anyone on the entire continent could \nsubmit a bill," Adams says, looking horrified by the thought.')
   if choice not in possible_options:
     choice_not_option(introduce_bill)
 
-#actual game
+#randomizing questions
 question_list = np.random.choice(12, 8, replace=False)
 question_func = [
     article_two, voting_system, veto, president_law, article_three,
     judicial_review, case_types, independent_judiciary, article_one, senator_num, congress_purpose, introduce_bill
 ]
 
+#actual game
 intro() 
 
 for x in question_list:
@@ -281,11 +290,4 @@ for x in question_list:
 
 print("Congratulations, you've completed the Constitution Game Show! Play again to answer some different questions or go out and show off your Constitution knowledge!")
 
-def play_again():
-    print("\nDo you want to play again?")
-    choice = input(">>> ")
-    if choice in no:
-        print("\nGame Over")
-        exit()
-    branch(choice, yes, intro)
-    choice_not_option(play_again)
+play_again()
